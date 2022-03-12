@@ -3,7 +3,7 @@ import Document, {
   Head,
   Main,
   NextScript,
-  DocumentContext,
+  DocumentContext
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
@@ -35,13 +35,17 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html >
         <Head>
           <title>개시원</title>
           <meta name="description" content="반려동물 미용, 정보 No.1" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" />
         </Head>
-        <body>
+
+        <body style={{color:"white"}}>
           <Main />
           <NextScript />
         </body>
