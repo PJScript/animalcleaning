@@ -42,6 +42,8 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
+          {/* <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey="></script> */}
+          {/* <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script> */}
           <link href="https://fonts.googleapis.com/css2?family=Dongle&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" />
         </Head>
 

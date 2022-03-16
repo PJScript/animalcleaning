@@ -3,22 +3,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 const nav = () => {
   const [scrollState, setScrollState] = useState<number>(0);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 10 && window.scrollY < 120) {
-        setScrollState(window.scrollY);
-      } 
-      else if(window.scrollY < 2) {
-        setScrollState(window.scrollY);
-      }
-      return window.removeEventListener("scroll", () => {
-        console.log("삭제");
-      });
-    });
-  });
+  const [navVisibility, setNavVisibility] = useState<number>(1)
+
+  // console.log("랜더링")
+  // console.log(scrollState)
   return (
     <>
-      <MainNavContainer scrollState={scrollState}>
+      <MainNavContainer navVisibility={navVisibility}>
         <Logo>
           <Image src={"/icon/brandLogo.png"} width={150} height={110}></Image>
         </Logo>
@@ -61,21 +52,18 @@ const nav = () => {
 export default nav;
 
 const MainNavContainer = styled.div.attrs(() => {})`
-  display: flex;
+  display:flex;
   width: 100%;
   height: 120px;
   color: white;
   padding-bottom: 10px;
-  /* background:url("backgroundImage/grassNav.jpg"); */
-  /* background: ${(props) =>
-    props.scrollState ? "rgba(55, 49, 49, 0.7)" : "none"}; */
-  border-bottom: ${(props) => (props.scrollState ? `2px solid rgb(181, 214, 146, ${props.scrollState / 100})` : "none")};
+
+  border-bottom: 2px solid rgb(181, 214, 146);
   &::after {
     width: 100%;
     height: 100vh;
     content: "";
-    background-color: ${(props) =>
-      props.scrollState ? `rgb(181, 214, 146, ${props.scrollState / 100})` : "none"};
+    background-color: rgb(181, 214, 146,0.8);
     /* filter: brightness(70%); */
     position: absolute;
     top: 0;
@@ -83,20 +71,7 @@ const MainNavContainer = styled.div.attrs(() => {})`
     z-index: -2;
     overflow: hidden;
   }
-  /* &::before {
-    width: 100%;
-    height: 100vh;
-    content: "";
-    background: url("/backgroundImage/grassNav.jpg");
-    opacity: ${(props) => (props.scrollState ? `${props.scrollState / 300}` : 0.01)};
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    overflow: hidden;
-    filter: brightness(70%);
-  } */
-  /* opacity:0.3; */
+
   position: fixed;
   top: 0;
   left: 0;
@@ -139,7 +114,7 @@ const UlContainer = styled.ul`
   padding: 0;
   list-style: none;
   margin-top: 80px;
-  padding-left: 16rem;
+  padding-left: 14rem;
   padding-right: 20px;
 `;
 
@@ -174,7 +149,7 @@ const SearchBox = styled.li`
   padding-right: 4px;
 `;
 
-const SearchBoxInput = styled.input`
+export const SearchBoxInput = styled.input`
   width: 300px;
   height: 28px;
   border: none;
@@ -228,8 +203,7 @@ const MobileNavContainer = styled.div.attrs(() => {})`
   overflow: hidden;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: ${(props) =>
-      props.scrollState ? `rgb(181, 214, 146, ${props.scrollState / 100})` : "none"};
+  background-color:rgb(181, 214, 146,0.9);
 
   @media screen and (max-width: 1024px) {
     display: flex;

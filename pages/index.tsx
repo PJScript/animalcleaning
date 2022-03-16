@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import SecondSection from "../components/secondSection";
 import ThirdSection from "../components/thirdSection";
+
 // import scrollTo from "../utils/scrollTo";
 
 const Home: NextPage = () => {
@@ -18,29 +19,29 @@ const Home: NextPage = () => {
   const thirdRef = useRef(null);
   const refArray = [firstRef, secondRef, thirdRef];
   const [sectionLocation, setSectionLocation] = useState<number>(0);
+  const [scrollState, setScrollState] = useState<number>(200);
 
-  // const scrollTo = (ref: any) => {
-  //   window.scroll({
-  //     top: ref.current.offsetTop,
-  //     behavior: "smooth",
-  //   });
-  // };
+  
 
   useEffect(() => {
-    // window.addEventListener(
-    //   "wheel",
-    //   function (e) {
-    //     scrollTo(secondRef);
-    //     e.preventDefault();
-    //   },
-    //   { passive: false }
+   window.addEventListener("scroll",()=>{
+    //  console.log(window.scrollY,"스크롤")
+    if(window.scrollY <= 100){
+      setScrollState(100 - window.scrollY)
+      return removeEventListener("scroll",()=>{
+
+      })
+    }else if(window.scrollY > 101 && window.scrollY <= 1000){
+      setScrollState(0)
+    }
+   })
   }, []);
   return (
     <>
       <MainDiv>
         <MainContainer ref={firstRef}>
           <Figure>
-            <DogBackImage></DogBackImage>
+            <DogBackImage scrollState={scrollState}></DogBackImage>
           </Figure>
           <MainLeftTopBox>
             <Title01></Title01>
@@ -49,6 +50,7 @@ const Home: NextPage = () => {
               반려동물 서비스의 모든 것<br></br>
               팔자좋은 개 에서 시작하세요
               <br></br>
+              <SecretMsg>이건 비밀인데 옆집 바둑이는 벌써 사용중이래요!</SecretMsg>
               <MainLeftButtonBox>
                 <DefaultBtn className="hover">고객님 공간</DefaultBtn>
                 <DefaultBtn className="hover">사장님 공간</DefaultBtn>
@@ -171,7 +173,7 @@ export default Home;
 
 const MainDiv = styled.div`
   width: 100%;
-  height: 300vh;
+  height: auto;
 
   &::after {
     position: absolute;
@@ -251,6 +253,11 @@ const Title01 = styled.div`
   font-size: 5.2rem;
   color:black;
 `;
+
+const SecretMsg = styled.div`
+  font-size:2.6rem;
+  color:gray;
+`
 
 const MainLeftButtonBox = styled.div`
   display: flex;
@@ -395,10 +402,10 @@ const Figure = styled.div`
   /* filter: brightness(80%); */
 `;
 
-const DogBackImage = styled.img`
+const DogBackImage = styled.img.attrs(()=>{})`
   width: 100%;
   height: auto;
-  opacity: 0.6;
+  opacity: ${(props) => (props.scrollState * 0.01)};
   object-fit: contain;
   margin-bottom: -3.2px;
 
