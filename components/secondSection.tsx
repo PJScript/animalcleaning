@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import { SectionDiv } from "./globalSection";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef} from "react";
+import useScrollFadeIn from '../hooks/useScrollFadein';
+
 const SecondSection = () => {
+  const categoryItemLeftAnimation01 = useScrollFadeIn("left", 0.5, 0.1)
+  const categoryItemLeftAnimation02 = useScrollFadeIn("left", 0.5, 0.2)
+  const categoryItemLeftAnimation03 = useScrollFadeIn("left", 0.5, 0.3)
+  const categoryItemLeftAnimation04 = useScrollFadeIn("left", 0.5, 0.4)
+  const categoryItemLeftAnimation05 = useScrollFadeIn("left", 0.5, 0.5)
+  const suddenRankCategory = useScrollFadeIn("up", 0.5,0)
+
   const [resize, setResize] = useState<number>(1024)
     useEffect(()=>{
       window.addEventListener("resize",()=>{
         if(window.innerWidth < 1024){
-          console.log(window.innerWidth)
           setResize(window.innerWidth)
         }
         return window.removeEventListener("resize",()=>{
@@ -17,11 +25,11 @@ const SecondSection = () => {
     },[])
     return (
     <>
-      <SectionWrapper>
+      <SectionWrapper >
         <ListContainerWrapper>
           <ListTitle01>인기 서비스</ListTitle01>
           <ListCategoryUl resize={resize}>
-          <ListCategoryItem className="hover">
+          <ListCategoryItem className="hover" {...categoryItemLeftAnimation01}>
               <Image
                 src={"/thumbnails/agilityThumbnail.png"}
                 width={200}
@@ -30,7 +38,7 @@ const SecondSection = () => {
               <CategoryItemTitle>대회</CategoryItemTitle>
               <CategoryItemSubTitle>120명이 서비스를 이용했어요!</CategoryItemSubTitle>
             </ListCategoryItem>
-            <ListCategoryItem className="hover">
+            <ListCategoryItem className="hover" {...categoryItemLeftAnimation02}>
               <Image
                 src={"/thumbnails/eduThumbnail.png"}
                 width={200}
@@ -40,7 +48,7 @@ const SecondSection = () => {
               <CategoryItemSubTitle>120명이 서비스를 이용했어요!</CategoryItemSubTitle>
             </ListCategoryItem>
 
-            <ListCategoryItem className="hover">
+            <ListCategoryItem className="hover" {...categoryItemLeftAnimation03}>
               <Image
                 src={"/thumbnails/groomingThumbnail.png"}
                 width={200}
@@ -51,7 +59,7 @@ const SecondSection = () => {
 
             </ListCategoryItem>
 
-            <ListCategoryItem className="hover">
+            <ListCategoryItem className="hover" {...categoryItemLeftAnimation04}>
               <Image
                 src={"/thumbnails/duckThumbnail.png"}
                 width={200}
@@ -62,7 +70,7 @@ const SecondSection = () => {
 
             </ListCategoryItem>
 
-            <ListCategoryItem className="hover">
+            <ListCategoryItem className="hover" {...categoryItemLeftAnimation05}>
               <Image
                 src={"/thumbnails/bathThumbnail.png"}
                 width={200}
@@ -76,7 +84,7 @@ const SecondSection = () => {
         </ListContainerWrapper>
         <ListContainerWrapper>
           <ListTitle01>급상승 서비스</ListTitle01>
-          <ListCategoryUl>
+          <ListCategoryUl {...suddenRankCategory}>
             <BlankCategoryItem className="hover">
               <Image
                 src={"/backgroundImage/nosearch.png"}
