@@ -21,20 +21,16 @@ const Home: NextPage = () => {
   const [sectionLocation, setSectionLocation] = useState<number>(0);
   const [scrollState, setScrollState] = useState<number>(200);
 
-  
-
   useEffect(() => {
-   window.addEventListener("scroll",()=>{
-    //  console.log(window.scrollY,"스크롤")
-    if(window.scrollY <= 100){
-      setScrollState(100 - window.scrollY)
-      return removeEventListener("scroll",()=>{
-
-      })
-    }else if(window.scrollY > 101 && window.scrollY <= 1000){
-      setScrollState(0)
-    }
-   })
+    window.addEventListener("scroll", () => {
+      //  console.log(window.scrollY,"스크롤")
+      if (window.scrollY <= 100) {
+        setScrollState(100 - window.scrollY);
+        return removeEventListener("scroll", () => {});
+      } else if (window.scrollY > 101 && window.scrollY <= 1000) {
+        setScrollState(0);
+      }
+    });
   }, []);
   return (
     <>
@@ -50,7 +46,9 @@ const Home: NextPage = () => {
               반려동물 서비스의 모든 것<br></br>
               팔자좋은 개 에서 시작하세요
               <br></br>
-              <SecretMsg>이건 비밀인데 옆집 바둑이는 벌써 사용중이래요!</SecretMsg>
+              <SecretMsg>
+                이건 비밀인데 옆집 바둑이는 벌써 사용중이래요!
+              </SecretMsg>
               <MainLeftButtonBox>
                 <DefaultBtn className="hover">고객님 공간</DefaultBtn>
                 <DefaultBtn className="hover">사장님 공간</DefaultBtn>
@@ -251,13 +249,13 @@ const MainLeftTopBox = styled.div`
 
 const Title01 = styled.div`
   font-size: 5.2rem;
-  color:black;
+  color: black;
 `;
 
 const SecretMsg = styled.div`
-  font-size:2.6rem;
-  color:gray;
-`
+  font-size: 2.6rem;
+  color: gray;
+`;
 
 const MainLeftButtonBox = styled.div`
   display: flex;
@@ -277,7 +275,7 @@ const DefaultBtn = styled.div`
   font-size: 30px;
   font-weight: bold;
   margin-top: 39px;
-  color:white;
+  color: white;
 
   &:hover {
     background-color: #ffa600f4;
@@ -402,10 +400,10 @@ const Figure = styled.div`
   /* filter: brightness(80%); */
 `;
 
-const DogBackImage = styled.img.attrs(()=>{})`
+const DogBackImage = styled.img.attrs(() => {})`
   width: 100%;
   height: auto;
-  opacity: ${(props) => (props.scrollState * 0.01)};
+  opacity: ${(props) => props.scrollState * 0.01};
   object-fit: contain;
   margin-bottom: -3.2px;
 

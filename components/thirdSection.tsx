@@ -2,7 +2,10 @@ import styled from "styled-components";
 import { SectionDiv } from "./globalSection";
 import { useEffect } from "react";
 import { SearchBoxInput } from "./nav";
-import useScrollFadeIn from '../hooks/useScrollFadein';
+import { SearchBtn } from "../styles/globalStyle";
+import useScrollFadeIn from "../hooks/useScrollFadein";
+import LocationCategoryItem from "./locationCategory/locationCategoryItem";
+import { locationState } from "../state/store"
 
 declare global {
   interface Window {
@@ -11,25 +14,25 @@ declare global {
 }
 
 const ThirdSection = () => {
-  
-  const locationItemLeftAnimation01 = useScrollFadeIn("left", 0.5, 0.1)
-  const locationItemLeftAnimation02 = useScrollFadeIn("left", 0.5, 0.15)
-  const locationItemLeftAnimation03 = useScrollFadeIn("left", 0.5, 0.2)
-  const locationItemLeftAnimation04 = useScrollFadeIn("left", 0.5, 0.25)
-  const locationItemLeftAnimation05 = useScrollFadeIn("left", 0.5, 0.3)
-  const locationItemLeftAnimation06 = useScrollFadeIn("left", 0.5, 0.35)
-  const locationItemLeftAnimation07 = useScrollFadeIn("left", 0.5, 0.4)
-  const locationItemLeftAnimation08 = useScrollFadeIn("left", 0.5, 0.45)
-  const locationItemLeftAnimation09 = useScrollFadeIn("left", 0.5, 0.5)
-  const locationItemLeftAnimation10 = useScrollFadeIn("left", 0.5, 0.55)
-  const locationItemLeftAnimation11 = useScrollFadeIn("left", 0.5, 0.6)
-  const locationItemLeftAnimation12 = useScrollFadeIn("left", 0.5, 0.65)
-  const locationItemLeftAnimation13 = useScrollFadeIn("left", 0.5, 0.7)
-  const locationItemLeftAnimation14 = useScrollFadeIn("left", 0.5, 0.75)
-  const locationItemLeftAnimation15 = useScrollFadeIn("left", 0.5, 0.8)
-  const locationItemLeftAnimation16 = useScrollFadeIn("left", 0.5, 0.85)
-  const locationItemLeftAnimation17 = useScrollFadeIn("left", 0.5, 0.9)
+  const regionState = locationState((state)=> state.region)
+  const cityState = locationState((state)=> state.city)
 
+  const locationItemLeftAnimation02 = useScrollFadeIn("left", 0.5, 0.15);
+  const locationItemLeftAnimation03 = useScrollFadeIn("left", 0.5, 0.2);
+  const locationItemLeftAnimation04 = useScrollFadeIn("left", 0.5, 0.25);
+  const locationItemLeftAnimation05 = useScrollFadeIn("left", 0.5, 0.3);
+  const locationItemLeftAnimation06 = useScrollFadeIn("left", 0.5, 0.35);
+  const locationItemLeftAnimation07 = useScrollFadeIn("left", 0.5, 0.4);
+  const locationItemLeftAnimation08 = useScrollFadeIn("left", 0.5, 0.45);
+  const locationItemLeftAnimation09 = useScrollFadeIn("left", 0.5, 0.5);
+  const locationItemLeftAnimation10 = useScrollFadeIn("left", 0.5, 0.55);
+  const locationItemLeftAnimation11 = useScrollFadeIn("left", 0.5, 0.6);
+  const locationItemLeftAnimation12 = useScrollFadeIn("left", 0.5, 0.65);
+  const locationItemLeftAnimation13 = useScrollFadeIn("left", 0.5, 0.7);
+  const locationItemLeftAnimation14 = useScrollFadeIn("left", 0.5, 0.75);
+  const locationItemLeftAnimation15 = useScrollFadeIn("left", 0.5, 0.8);
+  const locationItemLeftAnimation16 = useScrollFadeIn("left", 0.5, 0.85);
+  const locationItemLeftAnimation17 = useScrollFadeIn("left", 0.5, 0.9);
 
   let map: any;
   let infoWindow: any;
@@ -83,29 +86,24 @@ const ThirdSection = () => {
     width: "80%",
     height: "600px",
   };
+
+
+  useEffect(() => {
+    console.log(regionState,"여기")
+  }, [locationState]);
   return (
     <>
       <ThirdSectionWrapper>
         <ThirdTitle>내 주변 찾아보기</ThirdTitle>
+        <div>{regionState} {">"} </div>
         <LocationCategoryUl>
-          <LocationCategoryItem {...locationItemLeftAnimation01}>서울</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation02}>경기</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation03}>강원</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation04}>인천</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation05}>세종</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation06}>충북</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation07}>충남</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation08}>대전</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation09}>대구</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation10}>경북</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation11}>경남</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation12}>전북</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation13}>전남</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation14}>울산</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation15}>광주</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation16}>부산</LocationCategoryItem>
-          <LocationCategoryItem {...locationItemLeftAnimation17}>제주</LocationCategoryItem>
+          {["서울","경기","강원","충북","충남","전북","전남","경북","경남","제주"].map((item,idx) => {
+            return <LocationCategoryItem key={idx} locationName={item}></LocationCategoryItem>
+          })}
+
         </LocationCategoryUl>
+        <ThirdSectionSearchBtn>검색</ThirdSectionSearchBtn>
+
         <SearchBarWrapper>
           <SearchBar placeholder="어떤 서비스를 찾으시나요?"></SearchBar>
         </SearchBarWrapper>
@@ -125,14 +123,21 @@ const ThirdSectionWrapper = styled(SectionDiv)`
   padding-left: 98px;
   padding-right: 98px;
   margin-top: 5.5rem;
-  width:100%;
-  height:auto;
-
+  width: 100%;
+  height: auto;
 `;
 
 const ThirdTitle = styled.div`
   margin-top: 20px;
 `;
+
+const ThirdSectionSearchBtn = styled(SearchBtn)`
+  width: 100%;
+  max-width: 360px;
+  height: 60px;
+  font-size:3.6rem;
+  margin-top:40px;
+`
 
 const Map = styled.div`
   width: 90vw;
@@ -152,28 +157,18 @@ const SearchBar = styled(SearchBoxInput)`
 const LocationCategoryUl = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
   height: auto;
   list-style: none;
-  margin:0;
-  padding:0;
-  @media screen and (max-width:768px){
-    width:400px;
+  margin: 0;
+  padding: 0;
+  @media screen and (max-width: 768px) {
+    width: 400px;
+    justify-content: flex-start;
+  }
+  @media screen and (max-width: 480px) {
+    width: 280px;
   }
 `;
-const LocationCategoryItem = styled.li`
-  width: 5rem;
-  height: auto;
-  background: rgba(0, 0, 255, 0.2);
-  color: black;
-  border-radius: 1.5rem;
-  text-align: center;
-  font-size: 2.8rem;
-  margin-right:1rem;
-  margin-left:1rem;
-  margin-top:0.5rem;
-  &:hover{
-    cursor:pointer;
-  }
-`;
+
