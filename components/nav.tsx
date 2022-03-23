@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { SearchBtn } from "../styles/globalStyle";
 const nav = () => {
   const [scrollState, setScrollState] = useState<number>(0);
   const [navVisibility, setNavVisibility] = useState<number>(1)
@@ -78,6 +79,7 @@ const MainNavContainer = styled.div.attrs(() => {})`
   z-index: 1;
   overflow: hidden;
   padding-left: 100px;
+
 
   @media screen and (max-width: 768px) {
     height: 70px;
@@ -161,21 +163,6 @@ export const SearchBoxInput = styled.input`
   }
 `;
 
-const SearchBtn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  width: 60px;
-  height: 28px;
-  background: gray;
-  border-radius: 10px;
-  color: white;
-
-  &:hover{
-    background-color: #ffa600f4;
-  }
-`;
 
 const MyPageToolBox = styled.div`
   display: flex;
@@ -185,9 +172,14 @@ const MyPageToolBox = styled.div`
   margin-top: -5px;
   @media screen and (max-width: 1024px) {
     margin-left: 0;
+    margin-right:77px;
+
     margin-top: 34px;
     width: 33px;
     height: 33px;
+  }
+  @media screen and (max-width: 768px) {
+    margin-right: -4px;
   }
 `;
 
@@ -210,6 +202,7 @@ const MobileNavContainer = styled.div.attrs(() => {})`
     width: 100%;
     justify-content: space-between;
   }
+ 
 `;
 
 const MobileMenu = styled.div`

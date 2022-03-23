@@ -123,9 +123,17 @@ const SectionWrapper = styled(SectionDiv)`
 `;
 
 const ListContainerWrapper = styled.div`
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
   width: 100%;
   margin-top:30px;
-  /* height: 50vh; */
+  @media screen and (max-width:1024px){
+    align-items: center;
+    
+  }
+
+
 `;
 
 const ListTitle01 = styled.div`
@@ -143,28 +151,29 @@ const ListCategoryUl = styled.ul.attrs(()=>{})`
   list-style: none;
   padding: 0;
   margin: 0;
+  
   @media screen and (max-width:1024px){
-    width:100%;
+    width:845px;
     flex-wrap:wrap;
-    justify-content:space-between;
-  }
-  @media screen and (max-width:940px) {
-    justify-content:flex-start;
-    padding-left:10%;
-  }
-  @media screen and (max-width:823px) {
-    justify-cotent:space-between;
-    padding-left:130px;
+    justify-content: flex-start;
   }
 
-  @media screen and (max-width:722px) {
-    justify-content:space-between;
-    padding-left:6px;
+  @media screen and (max-width:940px) {
+    width:625px;
+
   }
-  @media screen and (max-width:516px){
+  @media screen and (max-width:768px) {
+    /* width:100%; */
+    width:413px;
+  }
+
+  @media screen and (max-width:430px) {
+    width:278px;
+  }
+  /* @media screen and (max-width:516px){
     width:100%;
     padding-left:51px;
-  }
+  }  */
 `;
 
 const ListCategoryItem = styled.li`
@@ -180,6 +189,11 @@ const ListCategoryItem = styled.li`
   &:hover{
     border:1px solid orange;
     transform:translate(0px,1%)
+  }
+
+  @media screen and (max-width:430px) {
+    width:17.0rem;
+    height:17.0rem;
   }
 `;
 
