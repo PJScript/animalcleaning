@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { SectionDiv } from "./globalSection";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SearchBoxInput } from "./nav";
 import { SearchBtn } from "../styles/globalStyle";
 import useScrollFadeIn from "../hooks/useScrollFadein";
 import LocationCategoryItem from "./locationCategory/locationCategoryItem";
-import { locationState } from "../state/store"
-
+import { locationState } from "../state/store";
+import CityLocationCategoryItem from "./locationCategory/cityLocationCategoryItem"
+import Loading from "./common/loading"
 declare global {
   interface Window {
     kakao: any;
@@ -14,8 +15,62 @@ declare global {
 }
 
 const ThirdSection = () => {
-  const regionState = locationState((state)=> state.region)
-  const cityState = locationState((state)=> state.city)
+  const regionState = locationState((state) => state.region);
+  const cityState = locationState((state) => state.city);
+  const idxState = locationState((state) => state.idx);
+  
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const mapRef = useRef<HTMLDivElement | null>(null)
+  let location = [
+    "서울",
+    "경기",
+    "강원",
+    "충북",
+    "충남",
+    "전북",
+    "전남",
+    "경북",
+    "경남",
+    "제주",
+  ];
+  let cityLocation = [
+    [
+      "강남구",
+      "강동구",
+      "강서구",
+      "관악구",
+      "광진구",
+      "구로구",
+      "금천구",
+      "노원구",
+      "도봉구",
+      "동대문구",
+      "동작구",
+      "마포구",
+      "서대문구",
+      "서초구",
+      "성동구",
+      "성북구",
+      "송파구",
+      "양천구",
+      "영등포구",
+      "용산구",
+      "은평구",
+      "종로구",
+      "중구",
+      "중랑구",
+    ],
+    ["강남구", "강동구"],
+    ["강서구", "관악구"],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+  ];
 
   const locationItemLeftAnimation02 = useScrollFadeIn("left", 0.5, 0.15);
   const locationItemLeftAnimation03 = useScrollFadeIn("left", 0.5, 0.2);
@@ -88,26 +143,62 @@ const ThirdSection = () => {
   };
 
 
+  const searchBtnClick = () => {
+    mapRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setLoading(true)
+
+    setTimeout(()=>{
+  setLoading(false)
+    },3000)
+  }
+
   useEffect(() => {
-    console.log(regionState,"여기")
-  }, [locationState]);
+    console.log(regionState, "여기");
+  }, [regionState]);
   return (
     <>
+     <Loading view={loading}></Loading>
       <ThirdSectionWrapper>
         <ThirdTitle>내 주변 찾아보기</ThirdTitle>
-        <div>{regionState} {">"} </div>
+        <div>
+          {regionState} {">"}{cityState}
+        </div>
         <LocationCategoryUl>
-          {["서울","경기","강원","충북","충남","전북","전남","경북","경남","제주"].map((item,idx) => {
-            return <LocationCategoryItem key={idx} locationName={item}></LocationCategoryItem>
+          {[
+            "서울",
+            "경기",
+            "강원",
+            "충북",
+            "충남",
+            "전북",
+            "전남",
+            "경북",
+            "경남",
+            "제주",
+          ].map((item, idx) => {
+            return (
+              <LocationCategoryItem
+                key={idx}
+                idx={idx}
+                locationName={item}
+              ></LocationCategoryItem>
+            );
           })}
-
         </LocationCategoryUl>
-        <ThirdSectionSearchBtn>검색</ThirdSectionSearchBtn>
+        <CityLocationCategoryList>
+          {cityLocation[idxState].map((item, idx) => {
+            return (
+              
+                <CityLocationCategoryItem key={idx} locationCityName={item}></CityLocationCategoryItem>
+            );
+          })}
+              </CityLocationCategoryList>
+        <ThirdSectionSearchBtn onClick={searchBtnClick}>검색</ThirdSectionSearchBtn>
 
         <SearchBarWrapper>
           <SearchBar placeholder="어떤 서비스를 찾으시나요?"></SearchBar>
         </SearchBarWrapper>
-        <Map id="map"></Map>
+        <Map id="map" ref={mapRef}></Map>
       </ThirdSectionWrapper>
     </>
   );
@@ -125,6 +216,10 @@ const ThirdSectionWrapper = styled(SectionDiv)`
   margin-top: 5.5rem;
   width: 100%;
   height: auto;
+  @media screen and (max-width: 768px) {
+    padding-left:10px;
+    padding-right:10px;
+  }
 `;
 
 const ThirdTitle = styled.div`
@@ -135,9 +230,9 @@ const ThirdSectionSearchBtn = styled(SearchBtn)`
   width: 100%;
   max-width: 360px;
   height: 60px;
-  font-size:3.6rem;
-  margin-top:40px;
-`
+  font-size: 3.6rem;
+  margin-top: 40px;
+`;
 
 const Map = styled.div`
   width: 90vw;
@@ -171,4 +266,29 @@ const LocationCategoryUl = styled.ul`
     width: 280px;
   }
 `;
+
+const CityLocationCategoryList = styled.ul`
+  display: flex;
+  width:768px;
+  background-color: rgba(69, 69, 71,0.3);
+  border-radius:18px;
+  flex-wrap:wrap;
+  margin:0px;
+  padding: 0px;
+  padding:20px;
+  list-style: none;
+  font-size:3.4rem;
+  margin-top:20px;
+
+  @media screen and (max-width:1024px) {
+    width: 640px;
+  }
+  @media screen and (max-width:768px) {
+    width: 440px;
+  }
+  @media screen and (max-width: 480px) {
+    width: 270px;
+  }
+`;
+
 

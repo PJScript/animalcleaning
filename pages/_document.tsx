@@ -37,7 +37,6 @@ class MyDocument extends Document {
     return (
       <Html >
         <Head>
-          <title>개시원</title>
           <meta name="description" content="반려동물 미용, 정보 No.1" />
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
