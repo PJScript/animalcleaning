@@ -4,16 +4,19 @@ import { useState, useEffect } from "react"
 import { locationState } from "../../state/store"
 
 interface Props {
+  idx: number,
   locationName: string,
 }
 
 const locationCategoryItem = (props: Props) => {
   const [categorySelect, setCategorySelect] = useState<boolean>(false)
   const setRegion = locationState((state) => state.setRegion)
+  const setIdx = locationState((state) => state.setIdx)
   const region = locationState((state) => state.region)
 
   const locationItemLeftAnimation01 = useScrollFadeIn("left", 0.5, 0.1)
   const categoryClick = () => {
+    setIdx(props.idx)
     setRegion(props.locationName)
   };
   useEffect(()=>{

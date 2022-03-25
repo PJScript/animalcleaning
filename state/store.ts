@@ -1,6 +1,8 @@
 import create from "zustand";
 
 interface locationStateType {
+    idx: number;
+    setIdx: (idx: number) => void;
     region: string;
     setRegion: (region: string) => void;
     city: string;
@@ -10,6 +12,10 @@ interface locationStateType {
   }
 
   export const locationState = create<locationStateType>((set) => ({
+    idx: 0,
+    setIdx: (idx) => {
+      set( {idx} )
+    },
     region: "",
     setRegion: (region) => {
       set({ region })

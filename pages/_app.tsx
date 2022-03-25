@@ -4,6 +4,7 @@ import Nav from '../components/nav'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
   <>
+    <title>개시원</title>
     <Nav></Nav>
     <Component {...pageProps} />
   </>
