@@ -4,40 +4,36 @@ import { useState, useEffect } from "react"
 import { locationState } from "../../state/store"
 
 interface Props {
-  idx: number,
-  locationName: string,
+  serviceName: string
 }
 
 const locationCategoryItem = (props: Props) => {
   const [categorySelect, setCategorySelect] = useState<boolean>(false)
-  const setRegion = locationState((state) => state.setRegion)
-  const setCity = locationState((state) => state.setCity)
-  const setIdx = locationState((state) => state.setIdx)
-  const region = locationState((state) => state.region)
+  const city = locationState((state) => state.city)
+  const service = locationState((state) => state.service)
+  const setService = locationState((state)=> state.setService)
 
   const locationItemLeftAnimation01 = useScrollFadeIn("left", 0.5, 0.1)
   const categoryClick = () => {
-    setIdx(props.idx)
-    setRegion(props.locationName)
-    setCity("")
+    setService(props.serviceName)
   };
   useEffect(()=>{
-    console.log(region,"리전")
+
   },[])
 
     return (
       <>
-        <LocationCategoryItem propRegion={props.locationName} region={region} onClick={categoryClick} {...locationItemLeftAnimation01}>{props.locationName}</LocationCategoryItem>
+        <ServiceCategoryItem propService={props.serviceName} service={service} onClick={categoryClick} {...locationItemLeftAnimation01}>{props.serviceName}</ServiceCategoryItem>
       </>
     )
 }
 
 export default locationCategoryItem
 
-const LocationCategoryItem = styled.li.attrs(()=>{})`
-  width: 5rem;
+const ServiceCategoryItem = styled.li.attrs(()=>{})`
+  width: 10rem;
   height: auto;
-  background: ${(props) => props.region === props.propRegion ? "orange" : "rgba(0, 0, 255, 0.2)"};
+  background: ${(props) => props.service === props.propService ? "orange" : "rgba(212, 212, 212,0.9)"};
   color: black;
   border-radius: 1.5rem;
   text-align: center;

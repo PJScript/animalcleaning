@@ -29,4 +29,8 @@ const CityLocationCategoryItem = styled.li.attrs(()=>{})`
   text-align:center;
   border-radius:16px;
   background-color: ${(props) => props.city === props.propCity ? "orange" : "rgba(161, 236, 220,0.6)"}; 
+
+  &:hover{
+    cursor: pointer;
+  }
 `
