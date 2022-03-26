@@ -44,7 +44,7 @@ const SecondSection = () => {
                 width={200}
                 height={150}
               ></Image>
-              <CategoryItemTitle>교육</CategoryItemTitle>
+              <CategoryItemTitle>훈련</CategoryItemTitle>
               <CategoryItemSubTitle>120명이 서비스를 이용했어요!</CategoryItemSubTitle>
             </ListCategoryItem>
 
@@ -65,7 +65,7 @@ const SecondSection = () => {
                 width={200}
                 height={150}
               ></Image>
-              <CategoryItemTitle>목욕</CategoryItemTitle>
+              <CategoryItemTitle>셀프 목욕</CategoryItemTitle>
               <CategoryItemSubTitle>15명이 서비스를 이용했어요!</CategoryItemSubTitle>
 
             </ListCategoryItem>

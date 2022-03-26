@@ -9,6 +9,8 @@ interface locationStateType {
     setCity: (city: string) => void;
     county: string;
     setCounty: (county: string) => void;
+    service: string;
+    setService: (serice: string) => void;
   }
 
   export const locationState = create<locationStateType>((set) => ({
@@ -28,4 +30,8 @@ interface locationStateType {
     setCounty: (county) => {
       set({ county })
     },
+    service: "",
+    setService: (service) => {
+      set( { service } )
+    }
   }));
