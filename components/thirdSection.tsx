@@ -5,7 +5,7 @@ import { SearchBoxInput } from "./nav";
 import { SearchBtn } from "../styles/globalStyle";
 import useScrollFadeIn from "../hooks/useScrollFadein";
 import LocationCategoryItem from "./locationCategory/locationCategoryItem";
-import { locationState } from "../state/store";
+import { kakaoMapState, locationState } from "../state/store";
 import CityLocationCategoryItem from "./locationCategory/cityLocationCategoryItem";
 import ServiceCategoryItem from "./locationCategory/serviceCategoryItem";
 import Loading from "./common/loading";
@@ -22,6 +22,9 @@ const ThirdSection = () => {
   const cityState = locationState((state) => state.city);
   const idxState = locationState((state) => state.idx);
   const serviceState = locationState((state) => state.service);
+  const markers = kakaoMapState((state) => state.markers)
+  const setMarkers = kakaoMapState((state) => state.setMarkers)
+  const resetMarkers = kakaoMapState((state) => state.resetMarkers)
 
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -47,8 +50,6 @@ const ThirdSection = () => {
   const [map, setMap] = useState<any>()
   let infoWindow: any;
   let ps: any;
-  var markers: [] = [];
-
   const placesSearchCB = (data: any, status: any, pagination: any) => {
     if (status === window.kakao.maps.services.Status.OK) {
       // 정상적으로 검색이 완료됐으면
@@ -93,13 +94,17 @@ const ThirdSection = () => {
     }
   };
   const removeMarker = () => {
+    console.log("리무스 마커 함수 작동")
+    let copyMarkers = [...markers]
     for (let i = 0; i < markers.length; i++) {
-      markers[i]?.setMap(null);
+      console.log(markers[i],"마커 i번째")
+      copyMarkers[i].setMap(null);
     }
-    markers = [];
+    resetMarkers()
   };
 
   const addMarker = (position: any, idx: any, title?: any) => {
+    
     var imageSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
       imageSize = new window.kakao.maps.Size(36, 37), // 마커 이미지의 크기
@@ -117,9 +122,8 @@ const ThirdSection = () => {
       position: position, // 마커의 위치
       image: markerImage,
     });
-
     marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers?.push(marker); // 배열에 생성된 마커를 추가합니다
+    setMarkers(marker)
 
     return marker;
   };
@@ -221,10 +225,11 @@ const ThirdSection = () => {
       listStr = "";
 
     // 검색 결과 목록에 추가된 항목들을 제거합니다
+    removeMarker();
+
     removeAllChildNods(listEl);
 
     // 지도에 표시되고 있는 마커를 제거합니다
-    removeMarker();
 
     for (var i = 0; i < places.length; i++) {
       // 마커를 생성하고 지도에 표시합니다
@@ -308,6 +313,10 @@ const ThirdSection = () => {
   useEffect(()=>{
     console.log(map,"맵이다맵")
   },[map])
+
+  useEffect(()=>{
+  console.log(markers,"마커스")
+  },[markers])
   return (
     <>
       <Loading view={loading}></Loading>
@@ -446,10 +455,13 @@ const MapMenuWrap = styled.div`
   margin-left:10px;
   margin-top:10px;
   padding-bottom:10px;
-  width:30%;
+  width:250px;
   height:90%;
   overflow:scroll;
   z-index:1000;
+  @media screen and (max-width:768px){
+    width:200px;
+  }
 `
 
 const PageNation = styled.div`

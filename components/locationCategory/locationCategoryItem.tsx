@@ -13,6 +13,7 @@ const locationCategoryItem = (props: Props) => {
   const setRegion = locationState((state) => state.setRegion)
   const setCity = locationState((state) => state.setCity)
   const setIdx = locationState((state) => state.setIdx)
+  const setService = locationState((state) => state.setService)
   const region = locationState((state) => state.region)
 
   const locationItemLeftAnimation01 = useScrollFadeIn("left", 0.5, 0.1)
@@ -20,6 +21,8 @@ const locationCategoryItem = (props: Props) => {
     setIdx(props.idx)
     setRegion(props.locationName)
     setCity("")
+    setService("")
+
   };
   useEffect(()=>{
     console.log(region,"리전")
