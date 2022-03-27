@@ -16,7 +16,7 @@ interface locationStateType {
 interface kakaoMapState {
   markers: any[];
   setMarkers: (obj: {}) => void;
-  removeMarkers: () => void;
+  resetMarkers: () => void;
 }
 
 export const locationState = create<locationStateType>((set) => ({
